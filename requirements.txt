@@ -3,3 +3,9 @@ numpy
 seaborn 
 pandas 
 scikit-learn
+matplotlib
+scipy
+plotly
+statsmodels
+altair
+
