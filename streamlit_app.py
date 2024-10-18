@@ -11,14 +11,29 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler, MinMaxScaler
 from scipy.stats import ttest_1samp
 
 def main():
-    """ Machine Learning DataSet Explorer & Data Visualization """
     st.title("ML DataSet Explorer & Data Visualization")
     st.subheader("DataSet Explorer built with Streamlit")
 
-    def file_selector(path='./datasets'):
-        files = os.listdir(path)
-        select_file = st.selectbox("Select a file(dataset)", files)
-        return os.path.join(path, select_file)
+    # Use the file_selector to upload a CSV file
+    df = file_selector()
+
+    # Proceed if the file was uploaded
+    if df is not None:
+        st.info("You uploaded a dataset.")
+        st.write(df.head())  # Show the first few rows of the dataset
+    else:
+        st.info("Please upload a CSV file.")
+
+
+   def file_selector():
+    # Upload CSV file via Streamlit's file uploader
+    uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+    if uploaded_file is not None:
+        # Read the uploaded file as a DataFrame
+        df = pd.read_csv(uploaded_file)
+        return df  # Return the dataframe from the uploaded file
+    return None  # If no file is uploaded, return None
+
 
     file = file_selector()
     st.info("You selected {}".format(file))
